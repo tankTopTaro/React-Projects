@@ -1,8 +1,13 @@
+import Navbar from "./components/Navbar"
+
 function App() {
 
   return (
     <>
-      <h1 className="text-center text-4xl font-semibold mt-10">Todo List</h1>
+      <Navbar />
+      <div className="h-screen bg-white dark:bg-gray-700 dark:text-white flex justify-center items-center">
+        Hello World
+      </div>
     </>
   )
 }

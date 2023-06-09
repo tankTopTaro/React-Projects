@@ -34,7 +34,8 @@ export default function Navbar() {
     }, [theme])
 
     const toggleTheme = () => {
-        setEnabled(!enabled) 
+        let toggled = enabled
+        setEnabled(!toggled) 
         setTheme(theme === 'dark' ? 'light' : 'dark')
     }
 
@@ -89,7 +90,7 @@ export default function Navbar() {
                             } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                         />
                     </Switch>
-                    <p className="ml-2 text-white">{theme === 'dark' ? 'Dark' : 'Light'}</p>
+                    <p className="ml-2 px-2 text-white">{theme === 'dark' ? 'Dark' : 'Light'}</p>
                 </div>
                 </div>
             </div>

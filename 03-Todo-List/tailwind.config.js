@@ -6,11 +6,18 @@ export default {
   ],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+        animation: {
+          'spin-slow': 'spin 5s linear infinite',
+      },
+    },
     fontFamily: {
       sans: ['Rubik', 'sans-serif']
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }
+
 

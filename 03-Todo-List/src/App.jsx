@@ -1,9 +1,28 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Navbar from "./components/Navbar"
 import TodoCard from "./components/TodoCard"
 
 function App() {
   const [todoCards, setTodoCards] = useState([])
+
+  useEffect(() => {
+    async function getCards() {
+      const response = await fetch(`http://localhost:5050/todo/`)
+
+      if (!response.ok) {
+        const message = `An error occured: ${response.statusText}`
+        window.alert(message)
+        return
+      }
+
+      const cards = await response.json()
+      setTodoCards(cards)
+    }
+
+    getCards()
+
+    return
+  }, [todoCards.length])
 
   return (
     <>

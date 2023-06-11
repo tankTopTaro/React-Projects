@@ -21,12 +21,24 @@ export default function Navbar({ todoCards, setTodoCards }) {
         setIsOpen(true)
     }
 
-    const addCard = (title, note) => {
+    const addCard = async (title, note) => {
         const newCard = {
             id: todoCards.length + 1,
             title: title,
             note: note,
         }
+
+        await fetch("http://localhost:5050/todo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newCard)
+        }).catch(error => {
+            window.alert(error)
+            return
+        })
+
         setTodoCards((prev) => [...prev, newCard])
         closeModal()
     }

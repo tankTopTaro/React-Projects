@@ -4,6 +4,8 @@ import Input from './Input'
 import Textarea from './Textarea'
 
 export default function Create({isOpen, closeModal, addCard}) {
+  const [title, setTitle] = useState('')
+  const [note, setNote] = useState('')
 
   return (
     <>
@@ -33,14 +35,14 @@ export default function Create({isOpen, closeModal, addCard}) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Input type="text" className="block w-full border-none text-lg" placeholder="Title"/>
-                  <Textarea className="block w-full h-72 border-non mt-4 resize-none" placeholder="Note"/>
+                  <Input type="text" className="block w-full border-none text-lg" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
+                  <Textarea className="block w-full h-72 border-non mt-4 resize-none" placeholder="Note" onChange={(e) => setNote(e.target.value)} />
 
                   <div className="mt-4">
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={addCard}
+                      onClick={() => addCard(title, note)}
                     >
                       Create
                     </button>

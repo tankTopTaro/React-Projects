@@ -21,12 +21,13 @@ export default function Navbar({ todoCards, setTodoCards }) {
         setIsOpen(true)
     }
 
-    const addCard = () => {
-        const newCard = [...todoCards]
-        newCard.push({
-        id: todoCards.length + 1,
-        })
-        setTodoCards(newCard)
+    const addCard = (title, note) => {
+        const newCard = {
+            id: todoCards.length + 1,
+            title: title,
+            note: note,
+        }
+        setTodoCards((prev) => [...prev, newCard])
         closeModal()
     }
 

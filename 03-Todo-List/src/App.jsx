@@ -1,21 +1,9 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Navbar from "./components/Navbar"
 import TodoCard from "./components/TodoCard"
 
 function App() {
   const [todoCards, setTodoCards] = useState([])
-
-  useEffect(() => {
-    const storedTodoCards = localStorage.getItem('todoCards')
-
-    if (storedTodoCards) {
-        setTodoCards(JSON.parse(storedTodoCards))
-    }
-  }, [])
-
-  useEffect(() => {
-      localStorage.setItem('todoCards', JSON.stringify(todoCards))
-  }, [todoCards])
 
   return (
     <>

@@ -5,9 +5,11 @@ import TodoCard from "./components/TodoCard"
 function App() {
   const [todoCards, setTodoCards] = useState([])
 
+  // Fetch all ToDo Cards from the database
+
   useEffect(() => {
     async function getCards() {
-      const response = await fetch(`https://03-todo-list-server.vercel.app/todo/`)
+      const response = await fetch(`http://localhost:5050/todo/`)
 
       if (!response.ok) {
         const message = `An error occured: ${response.statusText}`

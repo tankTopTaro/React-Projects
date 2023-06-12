@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Disclosure, Switch } from '@headlessui/react'
-import { PlusIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import { PlusIcon, TrashIcon, PencilSquareIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
 import Create from './Create'
 
+const navigation = [
+    { name: <PlusIcon className='block h-6 w-6'/>, action: 'create' },
+    { name: <PencilSquareIcon className='block h-6 w-6'/>, action: 'edit' },
+    { name: <TrashIcon className='block h-6 w-6'/>, action: 'delete' },
+]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -19,6 +24,14 @@ export default function Navbar({ todoCards, setTodoCards }) {
 
     function openModal() {
         setIsOpen(true)
+    }
+
+    function editCard() {
+        console.log("Edit")
+    }
+
+    function deleteCard() {
+        console.log("Delete")
     }
 
     const addCard = async (title, note) => {
@@ -74,14 +87,11 @@ export default function Navbar({ todoCards, setTodoCards }) {
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     {/* Mobile menu button*/}
                     <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <button
-                        onClick={openModal}
-                        className={`
-                            ${open ? '' : 'text-opacity-90'}
-                            group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
-                    >
-                        <PlusIcon className='block h-6 w-6'/>
-                    </button>
+                    {open ? (
+                        <XMarkIcon className='block h-6 w-6' aria-hidden="true" />
+                    ) : (
+                        <Bars3Icon className='block h-6 w-6' aria-hidden="true" />
+                    )}
                     </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -98,22 +108,35 @@ export default function Navbar({ todoCards, setTodoCards }) {
                     />
                     </div>
                     <div className="hidden sm:ml-6 sm:block">
-                    <div className="flex space-x-4">
-                        <div className='inline-flex items-center justify-center'>
-                            <h1 className="text-white text-2xl">Things To Do</h1>
-                        </div>
-                        <div className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
-                            <button
-                                onClick={openModal}
+                        <div className="flex space-x-4">
+                            <div className='inline-flex items-center justify-center'>
+                                <h1 className="text-white text-2xl">Things To Do</h1>
+                            </div>
+
+                            <div className='inline-flex gap-2 items-center justify-center rounded-md p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                            {navigation.map((item) => (
+                                <button 
                                 className={`
                                     ${open ? '' : 'text-opacity-90'}
-                                    group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
-                            >
-                                <PlusIcon className='block h-6 w-6'/>
-                            </button>
+                                    group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium text-white hover:bg-gray-600 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`
+                                }
+                                onClick={() => {
+                                    if (item.action === 'create') {
+                                        openModal()
+                                    } else if (item.action === 'edit') {
+                                        editCard()
+                                    } else if (item.action === 'delete') {
+                                        deleteCard()
+                                    } else {
+                                        return
+                                    }
+                                }}>{item.name}</button>
+                            ))}
+                            </div>
+
+                            {isOpen && <Create isOpen={isOpen} closeModal={closeModal} addCard={addCard} />}
+
                         </div>
-                        {isOpen && <Create isOpen={isOpen} closeModal={closeModal} addCard={addCard} />}
-                    </div>
                     </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -134,6 +157,29 @@ export default function Navbar({ todoCards, setTodoCards }) {
                 </div>
                 </div>
             </div>
+
+            <Disclosure.Panel className="sm:hidden">
+                <div className='inline-flex gap-2 items-center justify-center rounded-md p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                {navigation.map((item) => (
+                    <button 
+                    className={`
+                        ${open ? '' : 'text-opacity-90'}
+                        group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium text-white hover:bg-gray-600 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`
+                    }
+                    onClick={() => {
+                        if (item.action === 'create') {
+                            openModal()
+                        } else if (item.action === 'edit') {
+                            editCard()
+                        } else if (item.action === 'delete') {
+                            deleteCard()
+                        } else {
+                            return
+                        }
+                    }}>{item.name}</button>
+                ))}
+                </div>
+            </Disclosure.Panel>
             </>
         )}
         </Disclosure>

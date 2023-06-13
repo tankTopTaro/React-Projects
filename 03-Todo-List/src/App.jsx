@@ -4,6 +4,7 @@ import TodoCard from "./components/TodoCard"
 
 function App() {
   const [todoCards, setTodoCards] = useState([])
+  const [isEdit, setIsEdit] = useState(false)
 
   // Fetch all ToDo Cards from the database
 
@@ -28,12 +29,12 @@ function App() {
 
   return (
     <>
-      <Navbar todoCards={todoCards} setTodoCards={setTodoCards}/>
+      <Navbar todoCards={todoCards} setTodoCards={setTodoCards} isEdit={isEdit} setIsEdit={setIsEdit} />
       <div className="h-screen bg-white dark:bg-gray-700 dark:text-white">
         <div className="flex flex-col sm:flex-row py-4 px-2">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {todoCards.map((todoCard) => (
-              <TodoCard key={todoCard.id} title={todoCard.title} note={todoCard.note}/>
+              <TodoCard key={todoCard.id} title={todoCard.title} note={todoCard.note} isEdit={isEdit} />
             ))}
           </div>
         </div>

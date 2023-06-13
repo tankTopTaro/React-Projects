@@ -1,5 +1,7 @@
 # 03-Todo-List
 
+Develop a simple app to add and remove tasks from a todo list.
+
 ---
 
 - Install App Dependencies

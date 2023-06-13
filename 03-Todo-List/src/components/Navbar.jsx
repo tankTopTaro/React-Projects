@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Disclosure, Switch } from '@headlessui/react'
-import { PlusIcon, TrashIcon, PencilSquareIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import { PlusIcon, PencilSquareIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
 import Create from './Create'
+import Edit from './Edit'
 
 const navigation = [
     { name: <PlusIcon className='block h-6 w-6'/>, action: 'create' },
-    { name: <PencilSquareIcon className='block h-6 w-6'/>, action: 'edit' },
-    { name: <TrashIcon className='block h-6 w-6'/>, action: 'delete' },
+    { name: <PencilSquareIcon className='block h-6 w-6'/>, action: 'edit' }
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar({ todoCards, setTodoCards }) {
+export default function Navbar({ todoCards, setTodoCards, isEdit, setIsEdit }) {
     const [enabled, setEnabled] = useState(false)
     const [theme, setTheme] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -26,12 +26,8 @@ export default function Navbar({ todoCards, setTodoCards }) {
         setIsOpen(true)
     }
 
-    function editCard() {
-        console.log("Edit")
-    }
-
-    function deleteCard() {
-        console.log("Delete")
+    const editCard = (act) => {
+        setIsEdit(!isEdit)
     }
 
     const addCard = async (title, note) => {
@@ -116,6 +112,7 @@ export default function Navbar({ todoCards, setTodoCards }) {
                             <div className='inline-flex gap-2 items-center justify-center rounded-md p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
                             {navigation.map((item) => (
                                 <button 
+                                key={item.action}
                                 className={`
                                     ${open ? '' : 'text-opacity-90'}
                                     group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium text-white hover:bg-gray-600 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`
@@ -124,9 +121,7 @@ export default function Navbar({ todoCards, setTodoCards }) {
                                     if (item.action === 'create') {
                                         openModal()
                                     } else if (item.action === 'edit') {
-                                        editCard()
-                                    } else if (item.action === 'delete') {
-                                        deleteCard()
+                                        editCard('edit')
                                     } else {
                                         return
                                     }
@@ -162,6 +157,7 @@ export default function Navbar({ todoCards, setTodoCards }) {
                 <div className='inline-flex gap-2 items-center justify-center rounded-md p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
                 {navigation.map((item) => (
                     <button 
+                    key={item.action}
                     className={`
                         ${open ? '' : 'text-opacity-90'}
                         group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium text-white hover:bg-gray-600 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`
@@ -171,8 +167,6 @@ export default function Navbar({ todoCards, setTodoCards }) {
                             openModal()
                         } else if (item.action === 'edit') {
                             editCard()
-                        } else if (item.action === 'delete') {
-                            deleteCard()
                         } else {
                             return
                         }

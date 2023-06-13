@@ -1,12 +1,10 @@
 import React from 'react'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 
-const TodoCard = ({title, note, isEdit}) => {
+const TodoCard = (props) => {
     const editAction = (action) => {
         if (action === 'edit') {
             console.log("EDIT")
-        } else if (action === 'delete') {
-            console.log("DELETE")
         }
     }
     
@@ -17,21 +15,21 @@ const TodoCard = ({title, note, isEdit}) => {
                 <div className="relative rounded-[15px] bg-[#F5EFE7] p-6">
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <p className="text-2xl font-semibold text-slate-800">{title}</p>
-                            {isEdit && (<div className="inline-flex gap-2">
+                            <p className="text-2xl font-semibold text-slate-800">{props.todoCard.title}</p>
+                            {props.isEdit && (<div className="inline-flex gap-2">
                                 <button
                                     onClick={() => editAction('edit')}
                                     className='inline-flex items-center rounded-md bg-orange-700 px-2 py-1 text-base font-medium text-white hover:bg-gray-600 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
                                     <PencilIcon className='block h-5 w-5' />
                                 </button>
                                 <button 
-                                    onClick={() => editAction('delete')}
+                                    onClick={() => {props.deleteCard(props.todoCard._id)}}
                                     className='inline-flex items-center rounded-md bg-orange-700 px-2 py-1 text-base font-medium text-white hover:bg-gray-600 hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
                                     <TrashIcon className='block h-5 w-5' />
                                 </button>
                             </div>)}
                         </div>
-                        <p className="font-md text-slate-500">{note}</p>
+                        <p className="font-md text-slate-500">{props.todoCard.note}</p>
                     </div>
                 </div>
             </div>

@@ -27,6 +27,15 @@ function App() {
     return
   }, [todoCards.length])
 
+  const deleteCard = async (id) => {
+    await fetch(`http://localhost:5050/todo/${id}`, {
+        method: "DELETE"
+    })
+
+    const newCards = todoCards.filter((card) => card._id !== id)
+    setTodoCards(newCards)
+  }
+
   return (
     <>
       <Navbar todoCards={todoCards} setTodoCards={setTodoCards} isEdit={isEdit} setIsEdit={setIsEdit} />
@@ -34,7 +43,7 @@ function App() {
         <div className="flex flex-col sm:flex-row py-4 px-2">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {todoCards.map((todoCard) => (
-              <TodoCard key={todoCard.id} title={todoCard.title} note={todoCard.note} isEdit={isEdit} />
+              <TodoCard key={todoCard.id} todoCard={todoCard} isEdit={isEdit} deleteCard={deleteCard} />
             ))}
           </div>
         </div>

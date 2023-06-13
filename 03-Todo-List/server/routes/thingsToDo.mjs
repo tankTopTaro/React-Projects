@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
     title: req.body.title,
     note: req.body.note,
   };
+  
   let collection = await db.collection("thingsToDo");
   let result = await collection.insertOne(newDocument);
   res.send(result).status(204);
@@ -38,6 +39,7 @@ router.patch("/:id", async (req, res) => {
   const query = { _id: new ObjectId(req.params.id) };
   const updates =  {
     $set: {
+        id: req.body.id,
         title: req.body.title,
         note: req.body.note,
     }

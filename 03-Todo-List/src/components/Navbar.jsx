@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Disclosure, Switch } from '@headlessui/react'
 import { PlusIcon, PencilSquareIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
 import Create from './Create'
-import Edit from './Edit'
 
 const navigation = [
     { name: <PlusIcon className='block h-6 w-6'/>, action: 'create' },

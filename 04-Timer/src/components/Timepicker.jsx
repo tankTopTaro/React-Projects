@@ -12,6 +12,14 @@ const Timepicker = ({ time, count, setCount }) => {
         setCount(t)
     }
 
+    const decreaseTime = (maxTime) => {
+        let t = count - 1
+        if (t < 0) {
+            t = maxTime.slice(-1)
+        }
+        setCount(t)
+    }
+
     return (
         <div className="flex-col w-20 h-20">
             <div className="flex items-center justify-center">
@@ -26,6 +34,7 @@ const Timepicker = ({ time, count, setCount }) => {
             </div>
             <div className="flex items-center justify-center">
                 <button 
+                    onClick={() => decreaseTime(time)}
                     type='button' 
                     >
                     <ChevronDownIcon className="h-6 w-6 block"/>

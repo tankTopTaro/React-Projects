@@ -21,14 +21,25 @@ function App() {
     } 
   }, [])
 
+  const handleClick = () => {
+    console.log(`${hour} : ${minute} : ${second}`)
+  }
+
   return (
     <>
-      <div className="flex items-center justify-center w-screen h-screen">
+      <div className="flex items-center justify-center w-screen h-100 mt-10">
         <Timepicker time={hours} count={hour} setCount={setHour} /> 
         <span className="text-4xl px-2">:</span> 
         <Timepicker time={minutes} count={minute} setCount={setMinute} /> 
         <span className="text-4xl px-2">:</span> 
         <Timepicker time={seconds} count={second} setCount={setSecond} />
+      </div>
+      <div className="flex items-center justify-center mt-5">
+        <button
+          onClick={handleClick}
+          className="border-solid border-2 border-black py-3 px-5 text-2xl bg-[#32CD32]">
+          Start
+        </button>
       </div>
     </>
   )

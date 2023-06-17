@@ -55,6 +55,7 @@ function App() {
 
   const handleReset = () => {
     setHistory([])
+    setIsRunning(false)
     setHour(0)
     setMinute(0)
     setSecond(0)

@@ -2,6 +2,10 @@
 
 Develop a simple app to add and remove tasks from a todo list.
 
+You need to run the server locally if you want this app to work.
+
+I haven't figured out how to deploy MERN server yet.
+
 ---
 
 - Install App Dependencies
@@ -16,3 +20,6 @@ Develop a simple app to add and remove tasks from a todo list.
 
 - Running the Server
 `node server.mjs`
+
+- Run server from root folder
+`npm run start-server`
